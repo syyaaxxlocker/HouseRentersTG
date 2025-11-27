@@ -1,14 +1,20 @@
 import asyncio
 import logging
+import os
+from dotenv import load_dotenv
+
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters.command import Command
 from handlers import renters
 
 logging.basicConfig(level=logging.INFO)
 
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN_BOT")
 
 async def main():
-    bot = Bot(token="8288904305:AAHpwvRNJ5N4wTMHpTNUwn5oXvY51NfptuI")
+    bot = Bot(token=TOKEN)
     dp = Dispatcher()
     
     dp.include_routers(renters.router)
