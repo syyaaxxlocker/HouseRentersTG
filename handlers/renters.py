@@ -24,6 +24,6 @@ async def get_renters(message: Message):
     renters = ''
     for i, value in enumerate(responseJson):
         renters = renters + f"{emoji(i + 1)} - `{value['nick']}` - *{value['paidUntil']}* - {value['perHours']}/час\n"
-    await message.answer(text=f"🏠Состояние комнат\n\nКомната - Арендатор - Окончание аренды - Ставка\n{renters}", parse_mode=ParseMode.MARKDOWN)
+    await message.answer(text=f"🏠Состояние комнат на {responseJson['last_update']}\n\nКомната - Арендатор - Окончание аренды - Ставка\n{renters}", parse_mode=ParseMode.MARKDOWN)
         
     
