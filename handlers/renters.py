@@ -14,7 +14,7 @@ async def cmd_start(message: Message, bot: Bot):
     await notify_admin(bot, message)
     await message.reply(text=f'Привет, {message.from_user.first_name}', reply_markup=kb.main)
 
-@router.message(F.text == 'Подселенцы')
+@router.message(F.text == 'Подселенцы' or Command('renters'))
 async def get_renters(message: Message):
     dataUrl = "https://raw.githubusercontent.com/syyaaxxlocker/renters/refs/heads/main/renters.json"
     async with aiohttp.ClientSession() as session:
@@ -22,7 +22,7 @@ async def get_renters(message: Message):
             responseJson = await response.json(content_type='text/plain')
 
     renters = ''
-    for i, value in enumerate(responseJson):
+    for i, value in enumerate(responseJson["renters"]):
         renters = renters + f"{emoji(i + 1)} - `{value['nick']}` - *{value['paidUntil']}* - {value['perHours']}/час\n"
     await message.answer(text=f"🏠Состояние комнат на {responseJson['last_update']}\n\nКомната - Арендатор - Окончание аренды - Ставка\n{renters}", parse_mode=ParseMode.MARKDOWN)
         
